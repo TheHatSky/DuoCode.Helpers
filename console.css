@@ -1,0 +1,22 @@
+#duocode-console {
+  background-color: #F7F7F7;
+  border-color: #bbb;
+  border-width: 1px;
+  white-space: pre;
+  font-family: Lucida Console, Consolas, Courier New;
+  font-size: 12px;
+  color: #666;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  padding-top: 2px;
+  padding-bottom: 8px;
+  padding-left: 8px;
+  min-height: 40px;
+  max-height: 40%;
+  border-style: solid;
+  overflow-y: scroll;
+  background-position: right 30px bottom;
+  background-repeat: no-repeat;
+}
