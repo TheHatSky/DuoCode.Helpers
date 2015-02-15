@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HelloDuoCode
+namespace DuoCode.Helpers
 {
     public struct Color
     {

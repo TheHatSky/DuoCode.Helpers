@@ -2,7 +2,7 @@
 using DuoCode.Dom;
 using DuoCode.Runtime;
 
-namespace HelloDuoCode.Extensions
+namespace DuoCode.Helpers
 {
     // ReSharper disable once InconsistentNaming
     public static class CssStyleDeclarationExtensions
