@@ -39,10 +39,10 @@
     <Compile Include="Extensions\HtmlElementExtensions.cs" />
     <Compile Include="JQuery\JQueryObject.cs" />
     <Compile Include="JQuery\JQuery.cs" />
-    <Compile Include="Json\Deserializer.cs" />
-    <Compile Include="Json\DeserializationException.cs" />
-    <Compile Include="Json\IDeserializable.cs" />
-    <Compile Include="Json\HtmlElementDeserializer.cs" />
+    <Compile Include="Deserialization\Deserializer.cs" />
+    <Compile Include="Deserialization\DeserializationException.cs" />
+    <Compile Include="Deserialization\IDeserializable.cs" />
+    <Compile Include="Deserialization\HtmlElementDeserializer.cs" />
     <Compile Include="Method.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
