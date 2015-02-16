@@ -34,5 +34,29 @@ namespace DuoCode.Helpers
 
             Ajax<HTMLElement, HtmlElementDeserializer>.Request(options);
         }
+
+        static void RunAjaxJsonp() // HTML body.onload event entry point, see index.html
+        {
+            var input = Global.document.getElementById("inp") as HTMLInputElement;
+            var button = Global.document.getElementById("btn");
+
+            button.onclick = @event =>
+            {
+                var options = new JsonpOptions
+                {
+                    Url = input == null
+                        ? string.Empty
+                        : input.value ?? string.Empty,
+                    OnSuccess = json =>
+                    {
+                        Global.console.log(json);
+                    }
+                };
+
+                Jsonp.Request(options);
+
+                return null;
+            };
+        }
     }
 }

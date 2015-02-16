@@ -31,11 +31,14 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Ajax\Jsonp.cs" />
     <Compile Include="Ajax\Ajax.cs" />
+    <Compile Include="Ajax\JsonpOptions.cs" />
     <Compile Include="Ajax\AjaxOptions.cs" />
     <Compile Include="Ajax\AjaxRequestReadyState.cs" />
     <Compile Include="Color.cs" />
     <Compile Include="Extensions\CssStyleDeclarationExtensions.cs" />
+    <Compile Include="Extensions\WindowExtensions.cs" />
     <Compile Include="Extensions\HtmlElementExtensions.cs" />
     <Compile Include="JQuery\JQueryObject.cs" />
     <Compile Include="JQuery\JQuery.cs" />

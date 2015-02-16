@@ -23,6 +23,36 @@ var DuoCode = $g.DuoCode = $g.DuoCode || {};
 DuoCode.Helpers = DuoCode.Helpers || {};
 var $d = DuoCode.Runtime;
 $d.$assemblies["DuoCode.Helpers"] = $asm;
+DuoCode.Helpers.Jsonp = $d.declare("DuoCode.Helpers.Jsonp", System.Object, 0, $asm, function($t, $p) {
+    $t.cctor = function() {
+        $t._random = new System.Random.ctor();
+    };
+    $t.Request = function Jsonp_Request(options) {
+        options.get_BeforeRequest()();
+
+        var script = document.createElement("script");
+
+        var callbackName = "jsonp_callback_" + $d.toString($t()._random.Next());
+
+        script.src = options.get_Url() + (options.get_Url().Contains("?") ? "&" : "?") + "callback=" + callbackName;
+        script.onerror = $d.delegate(function(e) {
+            options.OnError(e);
+            return null;
+        }, this);
+
+        (window)[callbackName] = $d.cast(($d.delegate(function(data) {
+            DuoCode.Helpers.WindowExtensions.Eval(window, String.Format("delete window['{0}'];", $d.array(System.Object, 
+                [callbackName])));
+            document.body.removeChild(script);
+
+            var result = data; //DeserializeJsopn(options.OnDeserializationException, data.As<JSON>());
+
+            options.get_OnSuccess()(result);
+        }, this)), System.Action$1(System.Object));
+
+        document.body.appendChild(script);
+    };
+});
 DuoCode.Helpers.IDeserializable$1 = $d.declare("DuoCode.Helpers.IDeserializable`1", null, 322, $asm, 
     function($t, $p, T) {}, ["T"]);
 DuoCode.Helpers.Deserializer$1 = $d.declare("DuoCode.Helpers.Deserializer`1", System.Object, 256, $asm, 
@@ -65,21 +95,8 @@ DuoCode.Helpers.Ajax$2 = $d.declare("DuoCode.Helpers.Ajax`2", System.Object, 256
                 if (xmlHttpRequest.status != 200)
                     onError(e, xmlHttpRequest);
 
-                var deserializer = new TDeserializer.ctor();
-                var result = $d.default(TResponse);
-                try {
-                    result = deserializer.Deserialize(xmlHttpRequest.responseText);
-                }
-                catch ($e) {
-                    $e = System.Exception.Wrap($e);
-                    if ($e instanceof DuoCode.Helpers.DeserializationException) {
-                        onDeserializationException(e, xmlHttpRequest.responseText, $e);
-                    }
-                    else
-                        throw $e;
-                }
-
-
+                var result = DuoCode.Helpers.Ajax$2(TResponse, TDeserializer).Deserialize(onDeserializationException, 
+                    xmlHttpRequest.responseText, e);
                 onSuccess(e, result);
 
                 return null;
@@ -93,11 +110,56 @@ DuoCode.Helpers.Ajax$2 = $d.declare("DuoCode.Helpers.Ajax`2", System.Object, 256
 
         xmlHttpRequest.send();
     };
+    $t.Deserialize = function Ajax$2_Deserialize(onDeserializationException, responseText, e) {
+        var deserializer = new TDeserializer.ctor();
+        var result = $d.default(TResponse);
+        try {
+            result = deserializer.Deserialize(responseText);
+        }
+        catch ($e) {
+            $e = System.Exception.Wrap($e);
+            if ($e instanceof DuoCode.Helpers.DeserializationException) {
+                onDeserializationException(e, responseText, $e);
+            }
+            else
+                throw $e;
+        }
+
+        return result;
+    };
     $t.Request = function Ajax$2_Request(options) {
         DuoCode.Helpers.Ajax$2(TResponse, TDeserializer).Request$1(options.get_Method(), options.get_Url(), 
             options.get_OnSuccess(), options.get_OnDeserializationException(), options.OnError, options.get_BeforeRequest());
     };
 }, ["TResponse", $d.declareTP("TDeserializer", DuoCode.Helpers.Deserializer$1)]);
+DuoCode.Helpers.JsonpOptions = $d.declare("DuoCode.Helpers.JsonpOptions", System.Object, 0, $asm, function($t, $p) {
+    $t.$ator = function() {
+        this.OnError = null;
+        this.$OnSuccess$k__BackingField = null;
+        this.$BeforeRequest$k__BackingField = null;
+        this.$Url$k__BackingField = null;
+        this.$OnDeserializationException$k__BackingField = null;
+    };
+    $p.get_OnSuccess = function JsonpOptions_get_OnSuccess() { return this.$OnSuccess$k__BackingField; };
+    $p.set_OnSuccess = function JsonpOptions_set_OnSuccess(value) { this.$OnSuccess$k__BackingField = value;return value; };
+    $p.get_BeforeRequest = function JsonpOptions_get_BeforeRequest() { return this.$BeforeRequest$k__BackingField; };
+    $p.set_BeforeRequest = function JsonpOptions_set_BeforeRequest(value) { this.$BeforeRequest$k__BackingField = value;return value; };
+    $p.get_Url = function JsonpOptions_get_Url() { return this.$Url$k__BackingField; };
+    $p.set_Url = function JsonpOptions_set_Url(value) { this.$Url$k__BackingField = value;return value; };
+    $p.get_OnDeserializationException = function JsonpOptions_get_OnDeserializationException() { return this.$OnDeserializationException$k__BackingField; };
+    $p.set_OnDeserializationException = function JsonpOptions_set_OnDeserializationException(value) { this.$OnDeserializationException$k__BackingField = value;return value; };
+    $t.ctor = function JsonpOptions() {
+        $t.$baseType.ctor.call(this);
+        this.OnError = $d.delegate(function(e) {}, this);
+        this.set_OnSuccess($d.delegate(function(t) {}, this));
+        this.set_BeforeRequest($d.delegate(function() {}, this));
+        this.set_OnDeserializationException($d.delegate(function(data, exception) {
+            console.log(String.Format("Unable to deserialize: {0}. Data: {1}", $d.array(System.Object, 
+                [exception.get_Message(), data])));
+        }, this));
+    };
+    $t.ctor.prototype = $p;
+});
 DuoCode.Helpers.AjaxOptions$1 = $d.declare("DuoCode.Helpers.AjaxOptions`1", System.Object, 256, $asm, 
     function($t, $p, T) {
         $t.$ator = function() {
@@ -185,6 +247,17 @@ DuoCode.Helpers.CssStyleDeclarationExtensions = $d.declare("DuoCode.Helpers.CssS
         };
         $t.AsInt32 = function CssStyleDeclarationExtensions_AsInt32(source, getter) {
             return getter(source) * 1;
+        };
+    });
+DuoCode.Helpers.WindowExtensions = $d.declare("DuoCode.Helpers.WindowExtensions", System.Object, 0, $asm, 
+    function($t, $p) {
+        $t.Eval = function WindowExtensions_Eval(window, code) {
+            if (window == null)
+                throw new System.ArgumentNullException.ctor$1("window");
+            if (String.IsNullOrEmpty(code))
+                throw new System.ArgumentNullException.ctor$1("code");
+
+            (window).eval(code);
         };
     });
 DuoCode.Helpers.HtmlElementExtensions = $d.declare("DuoCode.Helpers.HtmlElementExtensions", System.Object, 
@@ -493,6 +566,25 @@ DuoCode.Helpers.Program = $d.declare("DuoCode.Helpers.Program", System.Object, 0
         }).call(this);
 
         DuoCode.Helpers.Ajax$2(HTMLElement, DuoCode.Helpers.HtmlElementDeserializer).Request(options);
+    };
+    $t.RunAjaxJsonp = function Program_RunAjaxJsonp() {
+        var input = $d.as(document.getElementById("inp"), HTMLInputElement);
+        var button = document.getElementById("btn");
+
+        button.onclick = $d.delegate(function(event) {
+            var options = (function() {
+                var $obj = new DuoCode.Helpers.JsonpOptions.ctor();
+                $obj.set_Url(input.value);
+                $obj.set_OnSuccess($d.delegate(function(json) {
+                    console.log(json);
+                }, this));
+                return $obj;
+            }).call(this);
+
+            DuoCode.Helpers.Jsonp.Request(options);
+
+            return null;
+        }, this);
     };
 });
 return $asm;

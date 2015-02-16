@@ -51,17 +51,7 @@ namespace DuoCode.Helpers
                     if (xmlHttpRequest.status != 200)
                         onError(e, xmlHttpRequest);
 
-                    var deserializer = new TDeserializer();
-                    TResponse result = default(TResponse);
-                    try
-                    {
-                        result = deserializer.Deserialize(xmlHttpRequest.responseText);
-                    }
-                    catch (DeserializationException exception)
-                    {
-                        onDeserializationException(e, xmlHttpRequest.responseText, exception);
-                    }
-
+                    var result = Deserialize(onDeserializationException, xmlHttpRequest.responseText, e);
                     onSuccess(e, result);
 
                     return null;
@@ -75,6 +65,25 @@ namespace DuoCode.Helpers
 
             xmlHttpRequest.send();
         }
+
+        private static TResponse Deserialize(
+            Action<Event, string, DeserializationException> onDeserializationException,
+            string responseText,
+            Event e)
+        {
+            var deserializer = new TDeserializer();
+            var result = default(TResponse);
+            try
+            {
+                result = deserializer.Deserialize(responseText);
+            }
+            catch (DeserializationException exception)
+            {
+                onDeserializationException(e, responseText, exception);
+            }
+            return result;
+        }
+
 
         public static void Request(AjaxOptions<TResponse> options)
         {

@@ -41,6 +41,7 @@ local.properties
 *.user
 *.sln.docstates
 
+
 # Build results
 
 [Dd]ebug/
@@ -49,8 +50,6 @@ x64/
 build/
 [Bb]in/
 [Oo]bj/
-
-DuoCode.Helpers.sln.ide/
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
@@ -216,3 +215,4 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+DuoCode.Helpers.sln.ide/*

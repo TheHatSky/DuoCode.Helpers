@@ -9,10 +9,13 @@
     <script type="text/javascript" src="scripts/DuoCode.Helpers.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 </head>
-<body onload="DuoCode.Helpers.Program.RunAjax()">
+<body onload="DuoCode.Helpers.Program.RunAjaxJsonp()">
   <h1>Hello DuoCode</h1>
 
-  <div id="content" class="a"></div>
+<input id="inp"/>
+<button value="clck" id="btn">jsonp</button>
+
+<div id="content" class="a"></div>
   <div id="duocode-console" style="opacity: 0.4">
 <font color="darkblue">This is a sample of a project written in C# and compiled to JavaScript using DuoCode.
 Press F12 to see the source code of the project.
