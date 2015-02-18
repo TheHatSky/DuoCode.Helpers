@@ -8,7 +8,8 @@ namespace DuoCode.Helpers
     {
         private static readonly Random _random = new Random();
 
-        public static void Request(JsonpOptions options)
+        public static void Request<TRequest>(JsonpOptions<TRequest> options)
+            where TRequest : new()
         {
             options.BeforeRequest();
 
@@ -20,15 +21,16 @@ namespace DuoCode.Helpers
             script.onerror = e =>
             {
                 options.OnError(e);
+                Global.window.Eval(string.Format("delete window['{0}'];", callbackName));
                 return null;
             };
 
-            ((dynamic) Global.window)[callbackName] = (Action<object>)(data =>
+            ((dynamic) Global.window)[callbackName] = (Action<JsObject>)(data =>
             {
                 Global.window.Eval(string.Format("delete window['{0}'];", callbackName));
                 Global.document.body.removeChild(script);
 
-                var result = data.As<JSON>();//DeserializeJsopn(options.OnDeserializationException, data.As<JSON>());
+                var result = data.Cast<TRequest>();
 
                 options.OnSuccess(result);
             });

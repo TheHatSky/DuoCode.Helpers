@@ -42,14 +42,14 @@ namespace DuoCode.Helpers
 
             button.onclick = @event =>
             {
-                var options = new JsonpOptions
+                var options = new JsonpOptions<Md5HashInfo>
                 {
                     Url = input == null
                         ? string.Empty
                         : input.value ?? string.Empty,
                     OnSuccess = json =>
                     {
-                        Global.console.log(json);
+                        json.Foo();
                     }
                 };
 

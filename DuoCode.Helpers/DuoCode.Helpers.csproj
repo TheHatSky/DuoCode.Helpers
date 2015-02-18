@@ -36,8 +36,11 @@
     <Compile Include="Ajax\JsonpOptions.cs" />
     <Compile Include="Ajax\AjaxOptions.cs" />
     <Compile Include="Ajax\AjaxRequestReadyState.cs" />
+    <Compile Include="Ajax\Test.cs" />
     <Compile Include="Color.cs" />
+    <Compile Include="Deserialization\JsonNameAttribute.cs" />
     <Compile Include="Extensions\CssStyleDeclarationExtensions.cs" />
+    <Compile Include="Extensions\JsObjectExtensions.cs" />
     <Compile Include="Extensions\WindowExtensions.cs" />
     <Compile Include="Extensions\HtmlElementExtensions.cs" />
     <Compile Include="JQuery\JQueryObject.cs" />

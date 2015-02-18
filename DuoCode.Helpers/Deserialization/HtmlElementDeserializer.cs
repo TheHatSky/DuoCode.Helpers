@@ -8,7 +8,7 @@ namespace DuoCode.Helpers
     /// </summary>
     public class HtmlElementDeserializer : Deserializer<HTMLElement>
     {
-        public override HTMLElement GetObject()
+        protected override HTMLElement GetObject()
         {
             return Global.document.createElement("div");
         }
