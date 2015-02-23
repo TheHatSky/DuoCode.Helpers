@@ -1,36 +1,15 @@
-﻿using System;
-using DuoCode.Dom;
+﻿using DuoCode.Dom;
 using DuoCode.Runtime;
 
 namespace DuoCode.Helpers
 {
+    [Js(Name = "$", Extern = true)]
     public static class JQuery
     {
-        private static readonly dynamic Jquery;
+        [Js(Name = "fn.init")]
+        public static extern JQueryObject ForSelector(string selector, string wrapper = null);
 
-        public static JQueryObject Get(string selector)
-        {
-            var elements = (JsArray)Jquery(selector);
-
-            var result = new JQueryObject();
-
-            foreach (var element in elements)
-                result.Add(element.As<HTMLElement>());
-
-            return result;
-        }
-
-        public static JQueryObject Get(params HTMLElement[] htmlElements)
-        {
-            return new JQueryObject(htmlElements);
-        }
-
-        static JQuery()
-        {
-            Jquery = ((dynamic) Global.window).jQuery;
-
-            if (Jquery == null)
-                throw new InvalidOperationException("jQuery is not loaded");
-        }
+        [Js(Name = "fn.init")]
+        public static extern JQueryObject FromElements(params HTMLElement[] elements);
     }
 }

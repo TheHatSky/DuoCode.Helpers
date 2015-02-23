@@ -47,7 +47,7 @@ DuoCode.Helpers.Jsonp = $d.declare("DuoCode.Helpers.Jsonp", System.Object, 0, $a
                 [callbackName])));
             document.body.removeChild(script);
 
-            var result = DuoCode.Helpers.JsObjectExtensions.Cast(TRequest, data); //DeserializeJsopn(options.OnDeserializationException, data.As<JSON>());
+            var result = DuoCode.Helpers.JsObjectExtensions.Cast(TRequest, data);
 
             options.get_OnSuccess()(result);
         }, this)), System.Action$1(Object));
@@ -134,6 +134,76 @@ DuoCode.Helpers.Ajax$2 = $d.declare("DuoCode.Helpers.Ajax`2", System.Object, 256
             options.get_OnSuccess(), options.get_OnDeserializationException(), options.OnError, options.get_BeforeRequest());
     };
 }, ["TResponse", $d.declareTP("TDeserializer", DuoCode.Helpers.Deserializer$1)]);
+DuoCode.Helpers.Ajax$1 = $d.declare("DuoCode.Helpers.Ajax`1", System.Object, 256, $asm, function($t, $p, TResponse) {
+    $t.cctor = function() {
+        $t.$DefaultOnDeserializationException$k__BackingField = null;
+        $t.$DefaultOnSuccess$k__BackingField = null;
+        $t().set_DefaultOnDeserializationException($d.delegate(function(e, responseText, exception) {
+            console.log("Deserialization error: " + responseText);
+        }, this));
+
+        $t().set_DefaultOnSuccess($d.delegate(function(e, response) {
+            console.log(response);
+        }, this));
+    };
+    $t.get_DefaultOnDeserializationException = function Ajax$1_get_DefaultOnDeserializationException() { return $t().$DefaultOnDeserializationException$k__BackingField; };
+    $t.set_DefaultOnDeserializationException = function Ajax$1_set_DefaultOnDeserializationException(value) { $t().$DefaultOnDeserializationException$k__BackingField = value;return value; };
+    $t.get_DefaultOnSuccess = function Ajax$1_get_DefaultOnSuccess() { return $t().$DefaultOnSuccess$k__BackingField; };
+    $t.set_DefaultOnSuccess = function Ajax$1_set_DefaultOnSuccess(value) { $t().$DefaultOnSuccess$k__BackingField = value;return value; };
+    $t.DefaultOnError = function Ajax$1_DefaultOnError(e, xmlHttpRequest) {
+        window.alert(String.Format("Error with status {0}: {1}.", $d.array(System.Object, [xmlHttpRequest.status, 
+            xmlHttpRequest.statusText])));
+    };
+    $t.Request$1 = function Ajax$1_Request(method, url, onSuccess, onDeserializationException, onError, beforeRequest) {
+        onSuccess = onSuccess || $t().get_DefaultOnSuccess();
+        onDeserializationException = onDeserializationException || $t().get_DefaultOnDeserializationException();
+        onError = onError || $d.delegate(DuoCode.Helpers.Ajax$1(TResponse).DefaultOnError);
+
+        var xmlHttpRequest = new XMLHttpRequest();
+        xmlHttpRequest.open($d.boxEnum(DuoCode.Helpers.Method, method), url, true);
+
+        xmlHttpRequest.onreadystatechange = $d.delegate(function(e) {
+            if (xmlHttpRequest.readyState == 4 /* AjaxRequestReadyState.ResponseReady */) {
+                if (xmlHttpRequest.status != 200)
+                    onError(e, xmlHttpRequest);
+
+                var result = DuoCode.Helpers.Ajax$1(TResponse).Deserialize(onDeserializationException, 
+                    xmlHttpRequest.responseText, e);
+                onSuccess(e, result);
+
+                return null;
+            }
+
+            return null;
+        }, this);
+
+        if (beforeRequest != null)
+            beforeRequest();
+
+        xmlHttpRequest.send();
+    };
+    $t.Deserialize = function Ajax$1_Deserialize(onDeserializationException, responseText, e) {
+        var deserializer = new (DuoCode.Helpers.JsonDeserializer$1(TResponse).ctor)();
+        var result = $d.default(TResponse);
+        try {
+            result = deserializer.Deserialize(responseText);
+        }
+        catch ($e) {
+            $e = System.Exception.Wrap($e);
+            if ($e instanceof DuoCode.Helpers.DeserializationException) {
+                onDeserializationException(e, responseText, $e);
+            }
+            else
+                throw $e;
+        }
+
+        return result;
+    };
+    $t.Request = function Ajax$1_Request(options) {
+        DuoCode.Helpers.Ajax$1(TResponse).Request$1(options.get_Method(), options.get_Url(), options.get_OnSuccess(), 
+            options.get_OnDeserializationException(), options.OnError, options.get_BeforeRequest());
+    };
+}, ["TResponse"]);
 DuoCode.Helpers.JsonpOptions$1 = $d.declare("DuoCode.Helpers.JsonpOptions`1", System.Object, 256, $asm, 
     function($t, $p, TRequest) {
         $t.$ator = function() {
@@ -191,21 +261,21 @@ DuoCode.Helpers.AjaxOptions$1 = $d.declare("DuoCode.Helpers.AjaxOptions`1", Syst
 DuoCode.Helpers.AjaxRequestReadyState = $d.declareEnum("DuoCode.Helpers.AjaxRequestReadyState", 44, $asm, 
     257, ["RequestNotInitialized", "ServerConnectionEstablished", "RequestReceived", "ProcessingRequest", 
         "ResponseReady"], [0, 1, 2, 3, 4]);
-DuoCode.Helpers.Test = $d.declare("DuoCode.Helpers.Test", System.Object, 0, $asm, function($t, $p) {
+DuoCode.Helpers.Md5HashInfo = $d.declare("DuoCode.Helpers.Md5HashInfo", System.Object, 0, $asm, function($t, $p) {
     $t.$typeInfo = function(t, p) { return [1, null, [["get_Md5Hash", p.get_Md5Hash, 6], ["set_Md5Hash", p.set_Md5Hash, 6], ["get_Text", p.get_Text, 6], ["set_Text", p.set_Text, 6], ["Foo", p.Foo, 6]], [["ctor", t.ctor, 6]], [["Md5Hash", 20, ["get_Md5Hash", p.get_Md5Hash, 6], ["set_Md5Hash", p.set_Md5Hash, 6], null, [new DuoCode.Helpers.JsonNameAttribute.ctor("md5")]], ["Text", 20, ["get_Text", p.get_Text, 6], ["set_Text", p.set_Text, 6], null, [new DuoCode.Helpers.JsonNameAttribute.ctor("original")]]]]; };
     $t.$ator = function() {
         this.$Md5Hash$k__BackingField = null;
         this.$Text$k__BackingField = null;
     };
-    $t.ctor = function Test() {
+    $t.ctor = function Md5HashInfo() {
         $t.$baseType.ctor.call(this);
     };
     $t.ctor.prototype = $p;
-    $p.get_Md5Hash = function Test_get_Md5Hash() { return this.$Md5Hash$k__BackingField; };
-    $p.set_Md5Hash = function Test_set_Md5Hash(value) { this.$Md5Hash$k__BackingField = value;return value; };
-    $p.get_Text = function Test_get_Text() { return this.$Text$k__BackingField; };
-    $p.set_Text = function Test_set_Text(value) { this.$Text$k__BackingField = value;return value; };
-    $p.Foo = function Test_Foo() {
+    $p.get_Md5Hash = function Md5HashInfo_get_Md5Hash() { return this.$Md5Hash$k__BackingField; };
+    $p.set_Md5Hash = function Md5HashInfo_set_Md5Hash(value) { this.$Md5Hash$k__BackingField = value;return value; };
+    $p.get_Text = function Md5HashInfo_get_Text() { return this.$Text$k__BackingField; };
+    $p.set_Text = function Md5HashInfo_set_Text(value) { this.$Text$k__BackingField = value;return value; };
+    $p.Foo = function Md5HashInfo_Foo() {
         console.log(String.Format("text: {0}\nmd5: {1}", $d.array(System.Object, [this.get_Text(), this.get_Md5Hash()])));
     };
 });
@@ -261,6 +331,22 @@ DuoCode.Helpers.Color = $d.declare("DuoCode.Helpers.Color", null, 62, $asm, func
             DuoCode.Helpers.Color.ToByte(this.G), DuoCode.Helpers.Color.ToByte(this.B)]));
     };
 });
+DuoCode.Helpers.JsonDeserializer$1 = $d.declare("DuoCode.Helpers.JsonDeserializer`1", DuoCode.Helpers.Deserializer$1, 
+    768, $asm, function($t, $p, T) {
+        $t.$intfs = function() { return [DuoCode.Helpers.IDeserializable$1(T)]; };
+        $t.ctor = function JsonDeserializer$1() {
+            $t.$baseType.ctor.call(this);
+        };
+        $t.ctor.prototype = $p;
+        $p.GetObject = function JsonDeserializer$1_GetObject() {
+            throw new System.InvalidOperationException.ctor();
+        };
+        $p.Deserialize = function JsonDeserializer$1_Deserialize(source) {
+            var jsObject = (new JSON().parse(source));
+            return DuoCode.Helpers.JsObjectExtensions.Cast(T, jsObject);
+        };
+        $p.DuoCode$Helpers$IDeserializable$1$Deserialize = $p.Deserialize;
+    }, ["T"]);
 DuoCode.Helpers.JsonNameAttribute = $d.declare("DuoCode.Helpers.JsonNameAttribute", System.Attribute, 
     0, $asm, function($t, $p) {
         $t.$ator = function() {
@@ -369,14 +455,23 @@ DuoCode.Helpers.HtmlElementExtensions = $d.declare("DuoCode.Helpers.HtmlElementE
             }, this)), 40 /* HtmlElementExtensions.MillisecondsBetweenSteps */);
         };
     });
-DuoCode.Helpers.JQueryObject = $d.declare("DuoCode.Helpers.JQueryObject", System.Collections.Generic.List$1(HTMLElement), 
+DuoCode.Helpers.JQueryObjectExtensions = $d.declare("DuoCode.Helpers.JQueryObjectExtensions", System.Object, 
+    0, $asm, function($t, $p) {
+        $t.FadeOut = function JQueryObjectExtensions_FadeOut(source, duration, onComplete) {
+            return source.fadeOut(duration.get_TotalMilliseconds(), onComplete);
+        };
+        $t.FadeIn = function JQueryObjectExtensions_FadeIn(source, duration, onComplete) {
+            return source.fadeIn(duration.get_TotalMilliseconds(), onComplete);
+        };
+    });
+DuoCode.Helpers.VanillaJQueryObject = $d.declare("DuoCode.Helpers.VanillaJQueryObject", System.Collections.Generic.List$1(HTMLElement), 
     0, $asm, function($t, $p) {
         $t.$intfs = function() { return [System.Collections.Generic.IList$1(HTMLElement), System.Collections.Generic.ICollection$1(HTMLElement), System.Collections.Generic.IReadOnlyList$1(HTMLElement), System.Collections.Generic.IReadOnlyCollection$1(HTMLElement), System.Collections.Generic.IEnumerable$1(HTMLElement), System.Collections.IList, System.Collections.ICollection, System.Collections.IEnumerable]; };
-        $t.ctor = function JQueryObject() {
+        $t.ctor = function VanillaJQueryObject() {
             $t.$baseType.ctor.call(this);
         };
         $t.ctor.prototype = $p;
-        $t.ctor$2 = function JQueryObject(elements) {
+        $t.ctor$2 = function VanillaJQueryObject(elements) {
             $t.ctor.call(this);
             var $iter = elements;
             var $enumerator = $iter.System$Collections$IEnumerable$GetEnumerator();
@@ -386,11 +481,11 @@ DuoCode.Helpers.JQueryObject = $d.declare("DuoCode.Helpers.JQueryObject", System
             }
         };
         $t.ctor$2.prototype = $p;
-        $t.ctor$1 = function JQueryObject(elements) {
+        $t.ctor$1 = function VanillaJQueryObject(elements) {
             $t.ctor$2.call(this, System.Linq.Enumerable.ToList(HTMLElement, elements));
         };
         $t.ctor$1.prototype = $p;
-        $p.Css = function JQueryObject_Css(setter) {
+        $p.Css = function VanillaJQueryObject_Css(setter) {
             var $iter = this;
             var $enumerator = $iter.System$Collections$IEnumerable$GetEnumerator();
             while ($enumerator.System$Collections$IEnumerator$MoveNext()) {
@@ -400,7 +495,7 @@ DuoCode.Helpers.JQueryObject = $d.declare("DuoCode.Helpers.JQueryObject", System
 
             return this;
         };
-        $p.Attr$1 = function JQueryObject_Attr(attributeName, valueBuilder) {
+        $p.Attr$1 = function VanillaJQueryObject_Attr(attributeName, valueBuilder) {
             var $iter = this;
             var $enumerator = $iter.System$Collections$IEnumerable$GetEnumerator();
             while ($enumerator.System$Collections$IEnumerator$MoveNext()) {
@@ -411,15 +506,15 @@ DuoCode.Helpers.JQueryObject = $d.declare("DuoCode.Helpers.JQueryObject", System
 
             return this;
         };
-        $p.Attr$2 = function JQueryObject_Attr(attributeName, value) {
+        $p.Attr$2 = function VanillaJQueryObject_Attr(attributeName, value) {
             return this.Attr$1(attributeName, $d.delegate(function(v) {
                 return value;
             }, this));
         };
-        $p.Attr = function JQueryObject_Attr(attributeName) {
+        $p.Attr = function VanillaJQueryObject_Attr(attributeName) {
             return System.Linq.Enumerable.Any(HTMLElement, this) ? this.get_Item(0).getAttribute(attributeName) : null;
         };
-        $p.Text = function JQueryObject_Text(text) {
+        $p.Text = function VanillaJQueryObject_Text(text) {
             var $iter = this;
             var $enumerator = $iter.System$Collections$IEnumerable$GetEnumerator();
             while ($enumerator.System$Collections$IEnumerator$MoveNext()) {
@@ -429,7 +524,7 @@ DuoCode.Helpers.JQueryObject = $d.declare("DuoCode.Helpers.JQueryObject", System
 
             return this;
         };
-        $p.Html = function JQueryObject_Html(html, evaluateScripts) {
+        $p.Html = function VanillaJQueryObject_Html(html, evaluateScripts) {
             var $iter = this;
             var $enumerator = $iter.System$Collections$IEnumerable$GetEnumerator();
             while ($enumerator.System$Collections$IEnumerator$MoveNext()) {
@@ -447,7 +542,7 @@ DuoCode.Helpers.JQueryObject = $d.declare("DuoCode.Helpers.JQueryObject", System
 
             return this;
         };
-        $p.AddClass = function JQueryObject_AddClass(className) {
+        $p.AddClass = function VanillaJQueryObject_AddClass(className) {
             var $iter = this;
             var $enumerator = $iter.System$Collections$IEnumerable$GetEnumerator();
             while ($enumerator.System$Collections$IEnumerator$MoveNext()) {
@@ -458,7 +553,7 @@ DuoCode.Helpers.JQueryObject = $d.declare("DuoCode.Helpers.JQueryObject", System
 
             return this;
         };
-        $p.RemoveClass = function JQueryObject_RemoveClass(className) {
+        $p.RemoveClass = function VanillaJQueryObject_RemoveClass(className) {
             var $iter = this;
             var $enumerator = $iter.System$Collections$IEnumerable$GetEnumerator();
             while ($enumerator.System$Collections$IEnumerator$MoveNext()) {
@@ -469,7 +564,7 @@ DuoCode.Helpers.JQueryObject = $d.declare("DuoCode.Helpers.JQueryObject", System
 
             return this;
         };
-        $p.ToggleClass = function JQueryObject_ToggleClass(className) {
+        $p.ToggleClass = function VanillaJQueryObject_ToggleClass(className) {
             var $iter = this;
             var $enumerator = $iter.System$Collections$IEnumerable$GetEnumerator();
             while ($enumerator.System$Collections$IEnumerator$MoveNext()) {
@@ -482,38 +577,38 @@ DuoCode.Helpers.JQueryObject = $d.declare("DuoCode.Helpers.JQueryObject", System
 
             return this;
         };
-        $p.WithClass = function JQueryObject_WithClass(className) {
-            return new DuoCode.Helpers.JQueryObject.ctor$2(System.Linq.Enumerable.Where(HTMLElement, 
+        $p.WithClass = function VanillaJQueryObject_WithClass(className) {
+            return new DuoCode.Helpers.VanillaJQueryObject.ctor$2(System.Linq.Enumerable.Where(HTMLElement, 
                 this, $d.delegate(function(e) {
                     return e.classList.contains(className);
                 }, this)));
         };
-        $p.WithoutClass = function JQueryObject_WithoutClass(className) {
-            return new DuoCode.Helpers.JQueryObject.ctor$2(System.Linq.Enumerable.Where(HTMLElement, 
+        $p.WithoutClass = function VanillaJQueryObject_WithoutClass(className) {
+            return new DuoCode.Helpers.VanillaJQueryObject.ctor$2(System.Linq.Enumerable.Where(HTMLElement, 
                 this, $d.delegate(function(e) {
                     return !e.classList.contains(className);
                 }, this)));
         };
-        $p.AnyHasClass = function JQueryObject_AnyHasClass(className) {
+        $p.AnyHasClass = function VanillaJQueryObject_AnyHasClass(className) {
             return System.Linq.Enumerable.Any$1(HTMLElement, this, $d.delegate(function(e) {
                 return e.classList.contains(className);
             }, this));
         };
-        $p.AllHasClass = function JQueryObject_AllHasClass(className) {
+        $p.AllHasClass = function VanillaJQueryObject_AllHasClass(className) {
             return System.Linq.Enumerable.All(HTMLElement, this, $d.delegate(function(e) {
                 return e.classList.contains(className);
             }, this));
         };
-        $p.AnyDontHasClass = function JQueryObject_AnyDontHasClass(className) {
+        $p.AnyDontHasClass = function VanillaJQueryObject_AnyDontHasClass(className) {
             return !this.AllHasClass(className);
         };
-        $p.AllDontHasClass = function JQueryObject_AllDontHasClass(className) {
+        $p.AllDontHasClass = function VanillaJQueryObject_AllDontHasClass(className) {
             return !this.AnyHasClass(className);
         };
-        $p.Fade$1 = function JQueryObject_Fade(fadingTimeInMilliseconds) {
+        $p.Fade$1 = function VanillaJQueryObject_Fade(fadingTimeInMilliseconds) {
             return this.Fade(System.TimeSpan.FromMilliseconds(fadingTimeInMilliseconds));
         };
-        $p.Fade = function JQueryObject_Fade(fadingTime) {
+        $p.Fade = function VanillaJQueryObject_Fade(fadingTime) {
             var $iter = this;
             var $enumerator = $iter.System$Collections$IEnumerable$GetEnumerator();
             while ($enumerator.System$Collections$IEnumerator$MoveNext()) {
@@ -524,10 +619,10 @@ DuoCode.Helpers.JQueryObject = $d.declare("DuoCode.Helpers.JQueryObject", System
 
             return this;
         };
-        $p.Show$1 = function JQueryObject_Show(showingTimeInMilliseconds, display) {
+        $p.Show$1 = function VanillaJQueryObject_Show(showingTimeInMilliseconds, display) {
             return this.Show(System.TimeSpan.FromMilliseconds(showingTimeInMilliseconds), null);
         };
-        $p.Show = function JQueryObject_Show(showingTime, display) {
+        $p.Show = function VanillaJQueryObject_Show(showingTime, display) {
             var $iter = this;
             var $enumerator = $iter.System$Collections$IEnumerable$GetEnumerator();
             while ($enumerator.System$Collections$IEnumerator$MoveNext()) {
@@ -540,7 +635,7 @@ DuoCode.Helpers.JQueryObject = $d.declare("DuoCode.Helpers.JQueryObject", System
             return this;
         };
     });
-DuoCode.Helpers.JQuery = $d.declare("DuoCode.Helpers.JQuery", System.Object, 0, $asm, function($t, $p) {
+DuoCode.Helpers.VanillaJQuery = $d.declare("DuoCode.Helpers.VanillaJQuery", System.Object, 0, $asm, function($t, $p) {
     $t.cctor = function() {
         $t.Jquery = null;
         $t().Jquery = (window).jQuery;
@@ -548,10 +643,10 @@ DuoCode.Helpers.JQuery = $d.declare("DuoCode.Helpers.JQuery", System.Object, 0, 
         if ($t().Jquery == null)
             throw new System.InvalidOperationException.ctor$1("jQuery is not loaded");
     };
-    $t.Get$1 = function JQuery_Get(selector) {
+    $t.Get$1 = function VanillaJQuery_Get(selector) {
         var elements = $t().Jquery(selector);
 
-        var result = new DuoCode.Helpers.JQueryObject.ctor();
+        var result = new DuoCode.Helpers.VanillaJQueryObject.ctor();
         for (var $i = 0, $length = elements.length; $i != $length; $i++) {
             var element = elements[$i];
             result.Add(element);
@@ -559,8 +654,8 @@ DuoCode.Helpers.JQuery = $d.declare("DuoCode.Helpers.JQuery", System.Object, 0, 
 
         return result;
     };
-    $t.Get = function JQuery_Get(htmlElements) {
-        return new DuoCode.Helpers.JQueryObject.ctor$1(htmlElements);
+    $t.Get = function VanillaJQuery_Get(htmlElements) {
+        return new DuoCode.Helpers.VanillaJQueryObject.ctor$1(htmlElements);
     };
 });
 DuoCode.Helpers.DeserializationException = $d.declare("DuoCode.Helpers.DeserializationException", System.Exception, 
@@ -592,25 +687,28 @@ DuoCode.Helpers.Method = $d.declareEnum("DuoCode.Helpers.Method", 45, $asm, 257,
     "POST", "PUT", "PATCH", "DELETE", "TRACE", "CONNECT"], [0, 1, 2, 3, 4, 5, 6, 7, 8]);
 DuoCode.Helpers.Program = $d.declare("DuoCode.Helpers.Program", System.Object, 0, $asm, function($t, $p) {
     $t.RunJQuery = function Program_RunJQuery() {
-        var divs = DuoCode.Helpers.JQuery.Get$1("div").WithoutClass("a").Show$1(10000, null);
+        var a = $.fn.init("div");
+        for (var $i = 0, $length = a.toArray().length; $i != $length; $i++) {
+            var item = a.toArray()[$i];
+            console.log($.fn.init(item).selector);
+            item.innerHTML = "<p>asdasd</p>";
+        }
 
-        console.log(divs.AnyHasClass("a"));
-        console.log(divs.AllHasClass("a"));
-        console.log(divs.AnyDontHasClass("a"));
-        console.log(divs.AllDontHasClass("a"));
+        DuoCode.Helpers.JQueryObjectExtensions.FadeOut(a, System.TimeSpan.FromSeconds(4), null).html("LOL");
     };
     $t.RunAjax = function Program_RunAjax() {
-        var el = DuoCode.Helpers.JQuery.Get($d.array(HTMLElement, [document.getElementById("content")]));
+        var el = $.fn.init(document.getElementById("content"));
 
         var options = (function() {
             var $obj = new (DuoCode.Helpers.AjaxOptions$1(HTMLElement).ctor)();
             $obj.set_Method(1 /* Method.GET */);
             $obj.set_Url("http://localhost:19308");
             $obj.set_BeforeRequest($d.delegate(function() {
-                el.Fade$1(0);
+                el.fadeOut(0);
             }, this));
             $obj.set_OnSuccess($d.delegate(function(e, element) {
-                el.Html(element.innerHTML, true).Show$1(4000, null);
+                DuoCode.Helpers.JQueryObjectExtensions.FadeIn(el.html(element.innerHTML), System.TimeSpan.FromSeconds(4), 
+                    null);
             }, this));
             return $obj;
         }).call(this);
@@ -623,7 +721,7 @@ DuoCode.Helpers.Program = $d.declare("DuoCode.Helpers.Program", System.Object, 0
 
         button.onclick = $d.delegate(function(event) {
             var options = (function() {
-                var $obj = new (DuoCode.Helpers.JsonpOptions$1(DuoCode.Helpers.Test).ctor)();
+                var $obj = new (DuoCode.Helpers.JsonpOptions$1(DuoCode.Helpers.Md5HashInfo).ctor)();
                 $obj.set_Url(input == null ? String.Empty : input.value || String.Empty);
                 $obj.set_OnSuccess($d.delegate(function(json) {
                     json.Foo();
@@ -631,7 +729,7 @@ DuoCode.Helpers.Program = $d.declare("DuoCode.Helpers.Program", System.Object, 0
                 return $obj;
             }).call(this);
 
-            DuoCode.Helpers.Jsonp.Request(DuoCode.Helpers.Test, options);
+            DuoCode.Helpers.Jsonp.Request(DuoCode.Helpers.Md5HashInfo, options);
 
             return null;
         }, this);

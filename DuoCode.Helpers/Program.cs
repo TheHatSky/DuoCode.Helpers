@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using DuoCode.Dom;
 
 namespace DuoCode.Helpers
@@ -6,17 +8,25 @@ namespace DuoCode.Helpers
     {
         static void RunJQuery() // HTML body.onload event entry point, see index.html
         {
-            var divs = JQuery.Get("div").WithoutClass("a").Show(10000);
+            var a = JQuery.ForSelector("div");
 
-            Global.console.log(divs.AnyHasClass("a"));
+            foreach (HTMLElement item in a)
+            {
+                Global.console.log(JQuery.FromElements(item).Selector);
+                item.innerHTML = "<p>asdasd</p>";
+            }
+
+            a.FadeOut(TimeSpan.FromSeconds(4)).Html("LOL");
+
+            /*Global.console.log(divs.AnyHasClass("a"));
             Global.console.log(divs.AllHasClass("a"));
             Global.console.log(divs.AnyDontHasClass("a"));
-            Global.console.log(divs.AllDontHasClass("a"));
+            Global.console.log(divs.AllDontHasClass("a"));*/
         }
 
         static void RunAjax() // HTML body.onload event entry point, see index.html
         {
-            var el = JQuery.Get(Global.document.getElementById("content"));
+            var el = JQuery.FromElements(Global.document.getElementById("content"));
 
             var options = new AjaxOptions<HTMLElement>
             {
@@ -24,11 +34,11 @@ namespace DuoCode.Helpers
                 Url = "http://localhost:19308",
                 BeforeRequest = () =>
                 {
-                    el.Fade(0);
+                    el.FadeOut(0);
                 },
                 OnSuccess = (e, element) =>
                 {
-                    el.Html(element.innerHTML, true).Show(4000);
+                    el.Html(element.innerHTML).FadeIn(TimeSpan.FromSeconds(4));
                 }
             };
 
