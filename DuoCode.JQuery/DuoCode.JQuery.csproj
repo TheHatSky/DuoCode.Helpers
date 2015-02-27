@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6B9104A0-8264-4088-826E-291A2696B90C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DuoCode.JQuery</RootNamespace>
+    <AssemblyName>DuoCode.JQuery</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <OutputPath>scripts\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;</DefineConstants>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>scripts\</OutputPath>
+    <DefineConstants>TRACE;</DefineConstants>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Ajax\Jsonp.cs" />
+    <Compile Include="Ajax\Ajax.cs" />
+    <Compile Include="Ajax\JsonpOptions.cs" />
+    <Compile Include="Ajax\AjaxOptions.cs" />
+    <Compile Include="Ajax\AjaxRequestReadyState.cs" />
+    <Compile Include="Ajax\Md5HashInfo.cs" />
+    <Compile Include="Deserialization\DeserializationUtility.cs" />
+    <Compile Include="Deserialization\JsonDeserializer.cs" />
+    <Compile Include="Deserialization\JsonNameAttribute.cs" />
+    <Compile Include="Extensions\CssStyleDeclarationExtensions.cs" />
+    <Compile Include="Extensions\JsObjectExtensions.cs" />
+    <Compile Include="Extensions\WindowExtensions.cs" />
+    <Compile Include="Extensions\HtmlElementExtensions.cs" />
+    <Compile Include="Extensions\JQueryObjectExtensions.cs" />
+    <Compile Include="JQuery\AjaxDataType.cs" />
+    <Compile Include="JQuery\AjaxErrorTextStatus.cs" />
+    <Compile Include="JQuery\AjaxSettings`1.cs" />
+    <Compile Include="JQuery\AjaxSettings`2.cs" />
+    <Compile Include="JQuery\AjaxSettings.cs" />
+    <Compile Include="JQuery\JQueryObject.cs" />
+    <Compile Include="JQuery\JQuery.cs" />
+    <Compile Include="Deserialization\Deserializer.cs" />
+    <Compile Include="Deserialization\DeserializationException.cs" />
+    <Compile Include="Deserialization\HtmlElementDeserializer.cs" />
+    <Compile Include="JQuery\JqXHR`2.cs" />
+    <Compile Include="JQuery\JqXHR.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="console.css" />
+    <Content Include="index.html" />
+    <Content Include="web.config" />
+    <None Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DuoCode.Helpers\DuoCode.Helpers.csproj">
+      <Project>{732661B6-2A27-488A-B5B1-EA2F2D575139}</Project>
+      <Name>DuoCode.Helpers</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(DuoCodeDir)\DuoCode.targets" Condition="Exists('$(DuoCodeDir)\DuoCode.targets')" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\WebApplications\Microsoft.WebApplication.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:19308/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
