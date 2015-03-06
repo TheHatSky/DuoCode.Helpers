@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0A950633-C04F-43BA-B571-DE2528D39091}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DuoCode.JQuery</RootNamespace>
+    <AssemblyName>DuoCode.JQuery</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>scripts\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>scripts\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Ajax\Ajax.cs" />
+    <Compile Include="Ajax\AjaxOptions.cs" />
+    <Compile Include="Ajax\AjaxRequestReadyState.cs" />
+    <Compile Include="Ajax\Jsonp.cs" />
+    <Compile Include="Ajax\JsonpOptions.cs" />
+    <Compile Include="Ajax\Md5HashInfo.cs" />
+    <Compile Include="Deserialization\DeserializationException.cs" />
+    <Compile Include="Deserialization\DeserializationUtility.cs" />
+    <Compile Include="Deserialization\Deserializer.cs" />
+    <Compile Include="Deserialization\HtmlElementDeserializer.cs" />
+    <Compile Include="Deserialization\JsonDeserializer.cs" />
+    <Compile Include="Deserialization\JsonNameAttribute.cs" />
+    <Compile Include="Extensions\CssStyleDeclarationExtensions.cs" />
+    <Compile Include="Extensions\HtmlElementExtensions.cs" />
+    <Compile Include="Extensions\JQueryObjectExtensions.cs" />
+    <Compile Include="Extensions\JsObjectExtensions.cs" />
+    <Compile Include="Extensions\WindowExtensions.cs" />
+    <Compile Include="JQuery\AjaxDataType.cs" />
+    <Compile Include="JQuery\AjaxErrorTextStatus.cs" />
+    <Compile Include="JQuery\AjaxSettings.cs" />
+    <Compile Include="JQuery\AjaxSettings`1.cs" />
+    <Compile Include="JQuery\AjaxSettings`2.cs" />
+    <Compile Include="JQuery\JQuery.cs" />
+    <Compile Include="JQuery\JQueryObject.cs" />
+    <Compile Include="JQuery\JqXhr.cs" />
+    <Compile Include="JQuery\JqXHR`2.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DuoCode.Helpers\DuoCode.Helpers.csproj">
+      <Project>{732661b6-2a27-488a-b5b1-ea2f2d575139}</Project>
+      <Name>DuoCode.Helpers</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(DuoCodeDir)\DuoCode.targets" Condition="Exists('$(DuoCodeDir)\DuoCode.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

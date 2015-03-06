@@ -14,7 +14,7 @@ namespace DuoCode.JQuery
 
         public override T Deserialize(string source)
         {
-            var jsObject = (JsObject)(new JSON().parse(source));
+            var jsObject = (JsObject)(Global.JSON.parse(source));
             return jsObject.Cast<T>();
         }
     }

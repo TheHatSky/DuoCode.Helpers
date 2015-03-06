@@ -14,10 +14,5 @@ namespace DuoCode.JQuery
 
         [Js(Name = "ajax")]
         public static extern JqXHR Ajax(AjaxSettings settings);
-
-        [Js(Name = "ajax")]
-        public static extern JqXHR Ajax<TResponce, TDeserializer>(AjaxSettings<TResponce, TDeserializer> settings)
-            where TDeserializer : Deserializer<TResponce>, new()
-            where TResponce : new();
     }
 }
