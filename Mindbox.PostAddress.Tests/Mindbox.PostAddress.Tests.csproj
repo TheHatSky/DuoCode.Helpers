@@ -7,8 +7,8 @@
     <ProjectGuid>{E35A780A-7330-49D6-825F-ADAF9158797B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UnitTest</RootNamespace>
-    <AssemblyName>UnitTest</AssemblyName>
+    <RootNamespace>Mindbox.PostAddress.Tests</RootNamespace>
+    <AssemblyName>Mindbox.PostAddress.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -35,8 +35,8 @@
     <Compile Include="QUnit.cs" />
     <Compile Include="TestAttributes.cs" />
     <Compile Include="TestRunner.cs" />
+    <Compile Include="TestsExample.cs" />
     <Compile Include="Tests.cs" />
-    <Content Include="console.css" />
     <Content Include="index.html" />
     <Content Include="qunit.css" />
     <Content Include="qunit.js" />

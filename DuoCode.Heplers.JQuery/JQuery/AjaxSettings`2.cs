@@ -8,11 +8,6 @@ namespace DuoCode.JQuery
 	{
 		public Action<string, DeserializationException> OnDeserializationException { protected get; set; }
 
-		public sealed override AjaxDataType DataType
-		{
-			set { }
-		}
-
 		/// <summary>
 		/// A function to be called if the request succeeds.
 		/// The function gets passed three arguments:

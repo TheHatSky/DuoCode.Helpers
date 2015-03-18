@@ -8,18 +8,19 @@ namespace DuoCode.JQuery
 	{
 		public JsonAjaxSettings()
 		{
+			DataType = AjaxDataType.json;
 			OnSuccessDynamic = (data, textStatus, jqXHR) =>
 			{
-				var responseText = jqXHR.responseText;
 				try
 				{
-					var jsObject = (JsObject)(Global.JSON.parse(responseText));
-					var result = jsObject.Cast<TResponse>();
+					var responseText = jqXHR.responseText;
+					var result = (jqXHR.responseJSON ?? (JsObject)(Global.JSON.parse(responseText))).As<TResponse>();
+
 					OnSuccess(result, textStatus, jqXHR as JqXHR<TResponse, JsonDeserializer<TResponse>>);
 				}
 				catch (DeserializationException exception)
 				{
-					OnDeserializationException(responseText, exception);
+					OnDeserializationException(jqXHR.response, exception);
 				}
 			};
 		}

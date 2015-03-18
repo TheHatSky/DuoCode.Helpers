@@ -1,102 +1,52 @@
-﻿using System.Collections.Generic;
-
-using DuoCode.Dom;
-using System;
-using System.Reflection;
-
-using DuoCode.Helpers;
-using DuoCode.JQuery;
-
-using Mindbox.PostAddress;
-
-namespace UnitTest
+﻿namespace Mindbox.PostAddress.Tests
 {
-	[TestFixture]
-	public sealed class Tests // your tests goes here, here are just a few samples
+	[TestFixture(Timeout = 20000)]
+	public sealed class Tests
 	{
-		[Test]
-		public void AssemblyNameIsUnitTest()
+		[TestInitialize]
+		public void TestInitialize()
 		{
-			Assembly assembly = Assembly.GetExecutingAssembly();
-			QUnit.AreEqual(assembly.FullName, "UnitTest");
+			PostAddress.ServerUrl = "https://mindbox.staging.directcrm.ru";
 		}
 
 		[Test]
-		public void ArraySortAndSearch()
+		public void Autocomplete_PostIndex()
 		{
-			byte[] array = { 6, 4, 2, 1, 5, 0, 3, 7 };
-			Array.Sort(array);
-			QUnit.DeepEqual(array, new byte[] { 0, 1, 2, 3, 4, 5, 6, 7 });
-			QUnit.AreEqual(Array.BinarySearch<byte>(array, 4), 4);
-			QUnit.IsTrue(Array.BinarySearch<byte>(array, 8) < 0);
-		}
+			Assert.Expect(7);
+			var done = Assert.GetAsyncFinalizer();
 
-		[Test]
-		public void GenericTypeInfo()
-		{
-			var tuple2Type = typeof(Tuple<int, string>);
-			QUnit.AreEqual(tuple2Type.GetGenericTypeDefinition(), typeof(Tuple<,>));
-			QUnit.AreEqual(tuple2Type.GenericTypeArguments.Length, 2);
-			var tuple2TypeArgs = tuple2Type.GetGenericArguments();
-			QUnit.AreEqual(tuple2TypeArgs.Length, 2);
-			QUnit.AreEqual(tuple2TypeArgs[0], typeof(int));
-			QUnit.AreEqual(tuple2TypeArgs[1], typeof(string));
-		}
-
-		[Test]
-		public void IntegerMath()
-		{
-			int x = 200;
-			QUnit.AreEqual(x + x * 2, 600);
-			QUnit.AreEqual(x / 3, 66);
-			QUnit.AreEqual((byte)x, 200);
-			QUnit.AreEqual((sbyte)x, -56);
-		}
-
-		[Test]
-		public void InvalidCastThrowsException()
-		{
-			object doc = Global.document;
-			Window window;
-
-			QUnit.IsTrue(typeof(Node).IsAssignableFrom(doc.GetType()));
-			QUnitUtils.Throws<InvalidCastException>(() => window = (Window)doc); // try to cast Document to Window
-		}
-
-		[Test]
-		public void PostAddressInit()
-		{
-			var settlement = PostAddress.GetSettlementById();
-
-			QUnit.AreEqual(settlement, "a");
-		}
-
-		[Test]
-		public void JQuery_Md5()
-		{
-			QUnit.IsTrue(true); // Необходим хотя бы один ассерт для запуска
-
-			var settings = new JsonAjaxSettings<Md5HashInfo>
-			{
-				Url = "http://md5.jsontest.com/",
-				Method = Method.GET,
-				Data = new Dictionary<string, string>
+			var expectation = new SimpleSettlementAutocompleteViewModel
 				{
-					{
-						"text", "ex"
-					}
-				},
-				IsCrossDomain = true,
-				DataType = AjaxDataType.jsonp,
-				OnSuccess = (info, status, jqXhr) =>
-					{
-						QUnit.AreEqual(info.Text, "ex");
-						QUnit.AreEqual(info.Md5Hash, "54d54a126a783bc9cba8c06137136943");
-					},
-				OnError = (xhr, status, arg3) => QUnitUtils.Fail("Ajax request failed")
-			};
+					RegionName = "Москва Город",
+					PostIndex = "115580",
+					Description = "город",
+					DistrictName = string.Empty,
+					SettlementName = "Москва",
+					SettlementId = "388707"
+				};
 
-			JQuery.Ajax(settings);
+			PostAddress.Autocomplete(
+				"115580",
+				searchResult =>
+					{
+						Assert.AreEqual(searchResult.Count, 1, "Должен прийти только один результат поиска автодополнения");
+
+						var result = searchResult[0];
+
+						Assert.AreEqual(result.RegionName, expectation.RegionName, "Город действительно Москва");
+						Assert.AreEqual(result.PostIndex, expectation.PostIndex, "Почтовый адрес и впрямь 115580");
+						Assert.AreEqual(result.Description, expectation.Description, "Описания совпадают");
+						Assert.AreEqual(result.DistrictName, expectation.DistrictName, "Названия районов сопадают");
+						Assert.AreEqual(result.SettlementId, expectation.SettlementId, "Id населенных пунктов совпадают");
+
+						Assert.AreEqual(
+							result.SettlementName,
+							expectation.SettlementName,
+							"Название населенных пунктов совпадают");
+
+						done();
+					}
+				);
 		}
 	}
 }

@@ -43,6 +43,16 @@ namespace DuoCode.JQuery
 		private bool useGlobalAjaxEventHandlers;
 		[Js(Name = "username")]
 		private string username;
+		[Js(Name = "jsonp")]
+		private string jsonp;
+
+		protected AjaxSettings()
+		{
+			IsAsync = true;
+			Method = Method.GET;
+			JsonpCallbackParameterName = "callback";
+			Url = "www.not-set.url";
+		}
 
 		/// <summary>
 		/// The type of data that you're expecting back from the server.
@@ -236,6 +246,15 @@ namespace DuoCode.JQuery
 		{
 			get { return password; }
 			set { password = value; }
+		}
+
+		/// <summary>
+		/// Jsonp callback function parameter name.
+		/// </summary>
+		public string JsonpCallbackParameterName
+		{
+			get { return jsonp; }
+			set { jsonp = value; }
 		}
 	}
 }
