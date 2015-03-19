@@ -61,12 +61,13 @@ Mindbox.PostAddress.Tests.TestFixtureAttribute = $d.declare("Mindbox.PostAddress
         $t.$ator = function() {
             this.$Timeout$k__BackingField = 0;
         };
-        $t.ctor = function TestFixtureAttribute() {
-            $t.$baseType.ctor.call(this);
-        };
-        $t.ctor.prototype = $p;
         $p.get_Timeout = function TestFixtureAttribute_get_Timeout() { return this.$Timeout$k__BackingField; };
         $p.set_Timeout = function TestFixtureAttribute_set_Timeout(value) { this.$Timeout$k__BackingField = value;return value; };
+        $t.ctor = function TestFixtureAttribute() {
+            $t.$baseType.ctor.call(this);
+            this.set_Timeout((System.TimeSpan.FromSeconds(15).get_TotalMilliseconds() | 0));
+        };
+        $t.ctor.prototype = $p;
     });
 Mindbox.PostAddress.Tests.TestRunner = $d.declare("Mindbox.PostAddress.Tests.TestRunner", System.Object, 
     0, $asm, function($t, $p) {
@@ -125,7 +126,7 @@ Mindbox.PostAddress.Tests.TestRunner = $d.declare("Mindbox.PostAddress.Tests.Tes
     });
 Mindbox.PostAddress.Tests.TestsExample = $d.declare("Mindbox.PostAddress.Tests.TestsExample", System.Object, 
     0, $asm, function($t, $p) {
-        $t.$typeInfo = function(t, p) { return [257, null, [["TestInitialize", p.TestInitialize, 6, null, null, [new Mindbox.PostAddress.Tests.TestInitializeAttribute.ctor()]], ["AssemblyNameIsUnitTest", p.AssemblyNameIsUnitTest, 6, null, null, [new Mindbox.PostAddress.Tests.TestAttribute.ctor()]], ["ArraySortAndSearch", p.ArraySortAndSearch, 6, null, null, [new Mindbox.PostAddress.Tests.TestAttribute.ctor()]], ["GenericTypeInfo", p.GenericTypeInfo, 6, null, null, [new Mindbox.PostAddress.Tests.TestAttribute.ctor()]], ["IntegerMath", p.IntegerMath, 6, null, null, [new Mindbox.PostAddress.Tests.TestAttribute.ctor()]], ["InvalidCastThrowsException", p.InvalidCastThrowsException, 6, null, null, [new Mindbox.PostAddress.Tests.TestAttribute.ctor()]], ["JQuery_Md5", p.JQuery_Md5, 6, null, null, [new Mindbox.PostAddress.Tests.TestAttribute.ctor()]]], [["ctor", t.ctor, 6]], null, null, [(function() { var $obj = new Mindbox.PostAddress.Tests.TestFixtureAttribute.ctor();$obj.set_Timeout(1);return $obj; }).call(this)]]; };
+        $t.$typeInfo = function(t, p) { return [257, null, [["TestInitialize", p.TestInitialize, 6, null, null, [new Mindbox.PostAddress.Tests.TestInitializeAttribute.ctor()]], ["AssemblyNameIsUnitTest", p.AssemblyNameIsUnitTest, 6, null, null, [new Mindbox.PostAddress.Tests.TestAttribute.ctor()]], ["ArraySortAndSearch", p.ArraySortAndSearch, 6, null, null, [new Mindbox.PostAddress.Tests.TestAttribute.ctor()]], ["GenericTypeInfo", p.GenericTypeInfo, 6, null, null, [new Mindbox.PostAddress.Tests.TestAttribute.ctor()]], ["IntegerMath", p.IntegerMath, 6, null, null, [new Mindbox.PostAddress.Tests.TestAttribute.ctor()]], ["InvalidCastThrowsException", p.InvalidCastThrowsException, 6, null, null, [new Mindbox.PostAddress.Tests.TestAttribute.ctor()]], ["JQuery_Md5", p.JQuery_Md5, 6, null, null, [new Mindbox.PostAddress.Tests.TestAttribute.ctor()]]], [["ctor", t.ctor, 6]], null, null, [new Mindbox.PostAddress.Tests.TestFixtureAttribute.ctor()]]; };
         $t.ctor = function TestsExample() {
             $t.$baseType.ctor.call(this);
         };
@@ -199,7 +200,7 @@ Mindbox.PostAddress.Tests.TestsExample = $d.declare("Mindbox.PostAddress.Tests.T
     });
 Mindbox.PostAddress.Tests.Tests = $d.declare("Mindbox.PostAddress.Tests.Tests", System.Object, 0, $asm, 
     function($t, $p) {
-        $t.$typeInfo = function(t, p) { return [257, null, [["TestInitialize", p.TestInitialize, 6, null, null, [new Mindbox.PostAddress.Tests.TestInitializeAttribute.ctor()]], ["Autocomplete_PostIndex", p.Autocomplete_PostIndex, 6, null, null, [new Mindbox.PostAddress.Tests.TestAttribute.ctor()]]], [["ctor", t.ctor, 6]], null, null, [(function() { var $obj = new Mindbox.PostAddress.Tests.TestFixtureAttribute.ctor();$obj.set_Timeout(20);return $obj; }).call(this)]]; };
+        $t.$typeInfo = function(t, p) { return [257, null, [["TestInitialize", p.TestInitialize, 6, null, null, [new Mindbox.PostAddress.Tests.TestInitializeAttribute.ctor()]], ["Autocomplete_PostIndex", p.Autocomplete_PostIndex, 6, null, null, [new Mindbox.PostAddress.Tests.TestAttribute.ctor()]]], [["ctor", t.ctor, 6]], null, null, [(function() { var $obj = new Mindbox.PostAddress.Tests.TestFixtureAttribute.ctor();$obj.set_Timeout(20000);return $obj; }).call(this)]]; };
         $t.ctor = function Tests() {
             $t.$baseType.ctor.call(this);
         };

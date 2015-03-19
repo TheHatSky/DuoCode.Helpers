@@ -2,25 +2,23 @@
 
 using DuoCode.Dom;
 using DuoCode.JQuery;
-using DuoCode.Runtime;
 
 namespace Mindbox.PostAddress
 {
 	public class AutocompleteDefaults
 	{
-		public void OnSuccess(
-			List<SimpleSettlementAutocompleteViewModel> autocompleteResult,
-			string responseStatus,
-			JqXHR<
-				JsArray<SimpleSettlementAutocompleteViewModel>,
-				JsonDeserializer<JsArray<SimpleSettlementAutocompleteViewModel>>> jqXhr
-			)
+		public void OnSuccess(List<SimpleSettlementAutocompleteViewModel> autocompleteResult)
 		{
-			Global.console.log("Default Autocomplete OnSuccess");
+			var test = JQuery.ForSelector("#test").Html(string.Empty);
+
 			foreach (var result in autocompleteResult)
-			{
-				Global.console.log(result);
-			}
+				test.Append(
+					string.Format("{0}: {1} - {2} - {3}<br/>",
+						result.PostIndex,
+						result.RegionName,
+						result.DistrictName,
+						result.SettlementName)
+					);
 		}
 	}
 }

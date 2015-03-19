@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Hello DuoCode</title>
+
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.5.2/select2.min.css" rel="stylesheet" />
+
+	<!-- assembly references (ordered by dependency) -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/3.5.2/select2.js"></script>
+
+	<script type="text/javascript" src="scripts/mscorlib.js"></script>
+	<script type="text/javascript" src="scripts/DuoCode.Helpers.js"></script>
+	<script type="text/javascript" src="scripts/DuoCode.JQuery.js"></script>
+	<script type="text/javascript" src="scripts/Mindbox.PostAddress.js"></script>
+	<script type="text/javascript" src="scripts/Mindbox.PostAddress.Example.js"></script>
+</head>
+<!--<body onload="Mindbox.PostAddress.Example.Program.Run()">-->
+<body onload="">
+	<h1>Hello PostAddress</h1>
+
+	<div id="simple-settlement-input-panel">
+		<input id="simple-settlement-input-textbox" type="hidden" />
+		<div id="test"></div>
+		<span id="complex-settlement-input-switch"></span>
+	</div>
+
+	<script>
+		$(function () {
+
+			$("#simple-settlement-input-textbox").select2({
+				width: "50%",
+				minimumInputLength: 1,
+				query: Mindbox.PostAddress.PostAddress.Autocomplete
+			});
+
+
+			Mindbox.PostAddress.PostAddress.Autocomplete$1("115580", function (data) {
+				$("#test").html(data[0].postIndex);
+			});
+
+			Mindbox.PostAddress.PostAddress.Initialize(
+			{
+				debug: true,
+				onAutocompleteSuccess: function() {}
+			});
+		});
+	</script>
+</body>
+</html>

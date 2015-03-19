@@ -56,7 +56,7 @@
       <Project>{732661b6-2a27-488a-b5b1-ea2f2d575139}</Project>
       <Name>DuoCode.Helpers</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DuoCode.Heplers.JQuery\DuoCode.JQuery.csproj">
+    <ProjectReference Include="..\DuoCode.JQuery\DuoCode.JQuery.csproj">
       <Project>{0a950633-c04f-43ba-b571-de2528d39091}</Project>
       <Name>DuoCode.JQuery</Name>
     </ProjectReference>

@@ -75,6 +75,31 @@ DuoCode.Helpers.Color = $d.declare("DuoCode.Helpers.Color", null, 62, $asm, func
             DuoCode.Helpers.Color.ToByte(this.G), DuoCode.Helpers.Color.ToByte(this.B)]));
     };
 });
+DuoCode.Helpers.DateTimeExtensions = $d.declare("DuoCode.Helpers.DateTimeExtensions", System.Object, 
+    0, $asm, function($t, $p) {
+        $t.ToLogString = function DateTimeExtensions_ToLogString(dateTime) {
+            var milliecondsString = dateTime.get_Millisecond().ToString();
+            while (milliecondsString.length <= 2) {
+                milliecondsString = "0" + milliecondsString;
+            }
+
+            return String.Format("{0} {1} {2}:{3}:{4}.{5}", $d.array(System.Object, [dateTime.get_Day(), 
+                DuoCode.Helpers.DateTimeExtensions.ToMonthShortName(dateTime), dateTime.get_Hour(), dateTime.get_Minute(), 
+                dateTime.get_Second(), milliecondsString]));
+        };
+        $t.ToMonthShortName = function DateTimeExtensions_ToMonthShortName(dateTime) {
+            return dateTime.get_JsDate().toDateString().split(" ")[1];
+        };
+    });
+DuoCode.Helpers.JsArrayExtensions = $d.declare("DuoCode.Helpers.JsArrayExtensions", System.Object, 0, 
+    $asm, function($t, $p) {
+        $t.ToList = function JsArrayExtensions_ToList(T, source) {
+            return System.Linq.Enumerable.ToList(T, source);
+        };
+        $t.Count = function JsArrayExtensions_Count(T, source) {
+            return System.Linq.Enumerable.Count(T, source);
+        };
+    });
 DuoCode.Helpers.StringExtensions = $d.declare("DuoCode.Helpers.StringExtensions", System.Object, 0, $asm, 
     function($t, $p) {
         $t.TryGet = function StringExtensions_TryGet(T, source) {

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuoCode.JQuery.Example", "DuoCode.Jquery\DuoCode.JQuery.Example.csproj", "{6B9104A0-8264-4088-826E-291A2696B90C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuoCode.JQuery.Example", "DuoCode.Jquery.Example\DuoCode.JQuery.Example.csproj", "{6B9104A0-8264-4088-826E-291A2696B90C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuoCode.Helpers", "DuoCode.Helpers\DuoCode.Helpers.csproj", "{732661B6-2A27-488A-B5B1-EA2F2D575139}"
 EndProject
@@ -11,7 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mindbox.PostAddress", "Mind
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mindbox.PostAddress.Tests", "Mindbox.PostAddress.Tests\Mindbox.PostAddress.Tests.csproj", "{E35A780A-7330-49D6-825F-ADAF9158797B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuoCode.JQuery", "DuoCode.Heplers.JQuery\DuoCode.JQuery.csproj", "{0A950633-C04F-43BA-B571-DE2528D39091}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuoCode.JQuery", "DuoCode.JQuery\DuoCode.JQuery.csproj", "{0A950633-C04F-43BA-B571-DE2528D39091}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mindbox.PostAddress.Example", "Mindbox.PostAddress.Example\Mindbox.PostAddress.Example.csproj", "{77C8B0BE-FD3D-42B4-856E-022E88DA7C73}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{0A950633-C04F-43BA-B571-DE2528D39091}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A950633-C04F-43BA-B571-DE2528D39091}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A950633-C04F-43BA-B571-DE2528D39091}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77C8B0BE-FD3D-42B4-856E-022E88DA7C73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77C8B0BE-FD3D-42B4-856E-022E88DA7C73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77C8B0BE-FD3D-42B4-856E-022E88DA7C73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77C8B0BE-FD3D-42B4-856E-022E88DA7C73}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
